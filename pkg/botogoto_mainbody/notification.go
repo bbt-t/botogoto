@@ -1,6 +1,7 @@
 package botogoto_mainbody
 
 import (
+	"BOTOGOTO/pkg/config"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log"
 	"os"
@@ -9,7 +10,7 @@ import (
 )
 
 func (b *Bot) startNotifyAdmin() {
-	msg := tgbotapi.NewMessage(adminID, "Бот запущен")
+	msg := tgbotapi.NewMessage(config.AdminID, "Бот запущен")
 	if _, err := b.botObj.Send(msg); err != nil {
 		log.Fatal(err)
 	}
@@ -27,7 +28,7 @@ func StopNotifyAdmin(bot *tgbotapi.BotAPI) {
 			case syscall.SIGINT:
 				fallthrough
 			case syscall.SIGTERM:
-				msg := tgbotapi.NewMessage(adminID, "Бот остановлен")
+				msg := tgbotapi.NewMessage(config.AdminID, "Бот остановлен")
 				if _, err := bot.Send(msg); err != nil {
 					log.Fatal(err)
 				}
