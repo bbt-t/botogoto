@@ -2,6 +2,7 @@ package botogoto_mainbody
 
 import (
 	"BOTOGOTO/pkg/config"
+	"BOTOGOTO/pkg/logging"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log"
 	"os"
@@ -14,6 +15,8 @@ func (b *Bot) startNotifyAdmin() {
 	if _, err := b.botObj.Send(msg); err != nil {
 		log.Fatal(err)
 	}
+	logger := logging.GetLogger()
+	logger.Info("Bot started!")
 }
 
 func StopNotifyAdmin(bot *tgbotapi.BotAPI) {
@@ -32,7 +35,9 @@ func StopNotifyAdmin(bot *tgbotapi.BotAPI) {
 				if _, err := bot.Send(msg); err != nil {
 					log.Fatal(err)
 				}
-				log.Fatal("Bot Stopped!")
+				logger := logging.GetLogger()
+				logger.Info("Bot Stopped!")
+				os.Exit(0)
 			}
 		}
 	}()
